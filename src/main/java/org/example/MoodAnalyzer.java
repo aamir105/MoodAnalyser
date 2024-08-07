@@ -1,4 +1,6 @@
 package org.example;
+//package org.MoodAnalyser;
+import java.util.Objects;
 
 public class MoodAnalyzer {
     String message;
@@ -13,8 +15,9 @@ public class MoodAnalyzer {
             this.message = message;
     }
 
-    public String analyseMood() {
+    public String analyseMood() throws MoodAnalysisException {
         try{
+            Objects.requireNonNull(message, "Message cannot be null");
             message = message.toLowerCase();
             if (message.contains("sad")) {
                 return "SAD";
@@ -25,7 +28,7 @@ public class MoodAnalyzer {
             }
         }
         catch (NullPointerException e){
-            return "HAPPY";
+            throw new MoodAnalysisException("Message cannot be null");
         }
     }
 }
