@@ -2,33 +2,32 @@ package org.example;
 //package org.MoodAnalyser;
 import java.util.Objects;
 
+import java.util.Objects;
+
 public class MoodAnalyzer {
-    String message;
+    private String message;
 
-    public MoodAnalyzer()
-    {
-
+    public enum Mood {
+        HAPPY, SAD, EMPTY
     }
 
-    public MoodAnalyzer(String message)
-    {
-            this.message = message;
+    public MoodAnalyzer(String message) throws MoodAnalysisException {
+        if (Objects.isNull(message) || message.trim().isEmpty()) {
+            throw new MoodAnalysisException(Mood.EMPTY.toString());
+        }
+        this.message = message;
     }
 
     public String analyseMood() throws MoodAnalysisException {
-        try{
-            Objects.requireNonNull(message, "Message cannot be null");
-            message = message.toLowerCase();
-            if (message.contains("sad")) {
-                return "SAD";
-            } else if (message.contains("happy")) {
-                return "HAPPY";
-            } else {
-                return "";
-            }
-        }
-        catch (NullPointerException e){
-            throw new MoodAnalysisException("Message cannot be null");
+        Objects.requireNonNull(message, "Message cannot be null");
+        message = message.toLowerCase();
+        if (message.contains("sad")) {
+            return "SAD";
+        } else if (message.contains("happy")) {
+            return "HAPPY";
+        } else {
+            return "";
         }
     }
 }
+
